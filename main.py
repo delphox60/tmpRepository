@@ -17,8 +17,9 @@ cursor.execute("select region_2depth_code from address_info where region_1depth_
 
 region_2depth_code_list = cursor.fetchall()
 for i in region_2depth_code_list:
-    
-    region_12depth_code_list.append("11" + str(i["region_2depth_code"]))
+    region_12depth_code = "11" + str(i["region_2depth_code"])
+    if len(region_12depth_code) == 5:
+        region_12depth_code_list.append(region_12depth_code)
     
 region_12depth_code_list = list(set(region_12depth_code_list))
 
@@ -27,7 +28,8 @@ for i in region_12depth_code_list:
     tmp_list = cursor.fetchall()
     for three_dc in tmp_list:
         
-        region_123depth_code_list.append(i + str(three_dc["region_3depth_code"]))
+        region_123depth_code = i + str(three_dc["region_3depth_code"])
+        if len(region_123depth_code) == 8:
+            region_123depth_code_list.append(region_123depth_code)
 
-for i in region_123depth_code_list:
-    print(i)
+# print(len(region_123depth_code_list))
