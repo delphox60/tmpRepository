@@ -1,5 +1,7 @@
+from urllib import request
 import pymysql
 import settings
+import requests
 
 region_12depth_code_list = []
 region_123depth_code_list = []
@@ -33,3 +35,15 @@ for i in region_12depth_code_list:
             region_123depth_code_list.append(region_123depth_code)
 
 # print(len(region_123depth_code_list))
+
+for code in region_12depth_code_list:
+    info = requests.get("http://fullbang.kr:8080/product/%s/marketPrice?capacity=0&date=2022-08-15&parkingAvailability=false&placeType=MOTEL" % code).text[1:-1].split(",")
+    info.append("address_code:" + code)
+    print(info)
+    print("")
+
+for code in region_123depth_code_list:
+    info = requests.get("http://fullbang.kr:8080/product/%s/marketPrice?capacity=0&date=2022-08-15&parkingAvailability=false&placeType=MOTEL" % code).text[1:-1].split(",")
+    info.append("address_code:" + code)
+    print(info)
+    print("")
