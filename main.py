@@ -36,14 +36,18 @@ for i in region_12depth_code_list:
 
 # print(len(region_123depth_code_list))
 
+file = open("./marketprice.txt", 'w')
+
 for code in region_12depth_code_list:
     info = requests.get("http://fullbang.kr:8080/product/%s/marketPrice?capacity=0&date=2022-08-15&parkingAvailability=false&placeType=MOTEL" % code).text[1:-1].split(",")
     info.append("address_code:" + code)
-    print(info)
-    print("")
+    file.write(str(info))
+    file.write(",\n")
 
 for code in region_123depth_code_list:
     info = requests.get("http://fullbang.kr:8080/product/%s/marketPrice?capacity=0&date=2022-08-15&parkingAvailability=false&placeType=MOTEL" % code).text[1:-1].split(",")
     info.append("address_code:" + code)
-    print(info)
-    print("")
+    file.write(str(info))
+    file.write(",\n")
+
+file.close()
